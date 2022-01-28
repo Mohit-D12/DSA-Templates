@@ -19,7 +19,32 @@ class Node
 
 };
 
-Node* kReverse(Node* head, int k) {
+Node* kReverse(Node* head, int k) 
+{
+    Node* curr = head;
+    Node* prev = NULL, *next = NULL;
+    int cnt = 0;
+
+    // Reversing the first K nodes of the given linked list.
+    while (curr != NULL && cnt < k) 
+    {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+        cnt++;
+    }
+
+    // If some nodes are still left, then we pass it to the recursive function.
+    if (next != NULL) 
+    {
+        head->next = kReverse(next, k);
+    }
+
+    return prev;
+}
+
+Node* kReverse2(Node* head, int k) {
     
     if(k == 1 || head->next == NULL)
         	return head;
