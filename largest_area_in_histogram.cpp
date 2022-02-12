@@ -104,4 +104,4 @@ class Alernate_Solution
         
         return max_area;
     }
-}
+};
