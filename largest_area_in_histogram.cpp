@@ -6,6 +6,37 @@ using namespace std;
 
 #define MAX 1000
 
+class Solution_short {
+    public:
+        int largestRectangleArea(vector<int> &height) {
+         
+            int area = 0;
+            
+            height.push_back(INT_MIN);        //such that each element has a smaller next element in arr
+            int n = height.size();
+            
+            stack<int> prev;       //to store previous smaller elements
+            
+            for(int i = 0; i < n; i++) {
+                
+                while(prev.size() && height[prev.top()] > height[i]) {
+                    
+                    int h = height[prev.top()];
+                    prev.pop();
+                    
+                    int prev_smaller = prev.size() ? prev.top() : -1;
+                    int next_smaller = i;
+                    
+                    area = max(area, h * (next_smaller - prev_smaller - 1));
+                }
+                
+                prev.push(i);
+            }
+            
+            return area;
+        }
+    };
+
 class Solution{
     void fill_left(int* arr, int n, int* l)
     {
